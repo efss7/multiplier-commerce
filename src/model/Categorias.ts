@@ -13,13 +13,12 @@ export class Category {
 }
 
 export interface CategoryDto {
-    codigo: string,
     titulo: string,
-    status: STATUS
+    status: string
 }
 export interface CategoryDB {
     id: string,
     codigo: string,
     titulo: string,
-    status: STATUS
+    status: number
 }

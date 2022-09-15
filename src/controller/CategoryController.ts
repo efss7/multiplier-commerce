@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import categoryBusiness, { CategoryBusiness } from "../business/CategoryBusiness";
+import { CategoryDto } from "../model/Categorias";
 
 export class CategoryController {
     constructor(
@@ -22,6 +23,17 @@ export class CategoryController {
             res.status(error.statusCode || 400).send({ error: error.message });
         }
     };
+    create = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const { titulo, status } = req.body
+            const inputs: CategoryDto = { titulo, status }
+            await this.categoryBusiness.create(inputs)
+            res.status(201).send("Categoria cadastrada com sucesso")
+        } catch (error: any) {
+            res.status(error.statusCode || 400).send({ error: error.message })
+        }
+    }
+    
 
 }
 

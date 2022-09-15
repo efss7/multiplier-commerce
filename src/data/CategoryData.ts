@@ -21,4 +21,12 @@ export class CategoryData extends BaseDatabase {
             throw new CustomError(500, error.sqlMessage);
         }
     };
+    create = async (input: CategoryDB): Promise<void> => {
+        try {
+            await BaseDatabase.connection("Categorias")
+                .insert(input)
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage);
+        }
+    };
 }
