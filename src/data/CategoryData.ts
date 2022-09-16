@@ -11,4 +11,22 @@ export class CategoryData extends BaseDatabase {
             throw new CustomError(500, error.sqlMessage);
         }
     }
+    findOne = async (id: string) => {
+        try {
+            const result = await BaseDatabase.connection("Categorias")
+                .select("*")
+                .where({ id });
+            return result;
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage);
+        }
+    };
+    create = async (input: CategoryDB): Promise<void> => {
+        try {
+            await BaseDatabase.connection("Categorias")
+                .insert(input)
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage);
+        }
+    };
 }
