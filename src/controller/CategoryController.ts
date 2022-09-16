@@ -44,6 +44,15 @@ export class CategoryController {
             res.status(error.statusCode || 400).send({ error: error.message })
         }
     }
+    delete = async (req: Request, res: Response): Promise<void> => {
+        const id = req.params.id;
+        try {
+            await this.categoryBusiness.delete(id)
+            res.status(200).send("Categoria excluída com sucesso");
+        } catch (error: any) {
+            res.status(error.statusCode || 400).send({ error: error.message });
+        }
+    }
 
 }
 

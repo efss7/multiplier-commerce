@@ -29,13 +29,22 @@ export class CategoryData extends BaseDatabase {
             throw new CustomError(500, error.sqlMessage);
         }
     };
-    update = async (input:UpdateCategoryDB): Promise<void> => {
+    update = async (input: UpdateCategoryDB): Promise<void> => {
         try {
             await BaseDatabase.connection("Categorias")
                 .update(input)
-                .where({id: input.id});
-        } catch (error:any) {
+                .where({ id: input.id });
+        } catch (error: any) {
             throw new CustomError(500, error.sqlMessage);
         }
     }
+    delete = async (id: string): Promise<void> => {
+        try {
+            await BaseDatabase.connection("Categorias")
+                .where({ id })
+                .delete()
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage);
+        }
+    };
 }
