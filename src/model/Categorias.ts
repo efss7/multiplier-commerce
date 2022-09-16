@@ -12,13 +12,23 @@ export class Category {
     ) { }
 }
 
-export interface CategoryDto {
+export interface CreateCategoryDto {
+    titulo: string,
+    status: string
+}
+export interface UpdateCategoryDto {
+    id:string,
     titulo: string,
     status: string
 }
 export interface CategoryDB {
     id: string,
     codigo: string,
+    titulo: string,
+    status: number
+}
+export interface UpdateCategoryDB {
+    id: string,
     titulo: string,
     status: number
 }
