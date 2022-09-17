@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import categoryBusiness, { CategoryBusiness } from "../business/CategoryBusiness";
-import { CreateCategoryDto, UpdateCategoryDto } from "../model/Categorias";
+import { CreateCategoryDto, UpdateCategoryDto } from "../model/Category";
 
 export class CategoryController {
     constructor(

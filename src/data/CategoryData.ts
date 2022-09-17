@@ -1,5 +1,5 @@
 import { CustomError } from "../business/errors/CustomError";
-import { CategoryDB, CreateCategoryDto, UpdateCategoryDB, UpdateCategoryDto } from "../model/Categorias";
+import { CategoryDB, UpdateCategoryDB } from "../model/Category";
 import BaseDatabase from "./BaseDatabase";
 
 export class CategoryData extends BaseDatabase {

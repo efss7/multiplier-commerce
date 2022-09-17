@@ -1,5 +1,5 @@
 import { CategoryData } from "../data/CategoryData";
-import { CategoryDB, CreateCategoryDto, STATUS, UpdateCategoryDB, UpdateCategoryDto } from "../model/Categorias"
+import { CategoryDB, CreateCategoryDto, STATUS, UpdateCategoryDB, UpdateCategoryDto } from "../model/Category"
 import IdGenerator from "../services/IdGenerator"
 import { CustomError } from "./errors/CustomError";
 
