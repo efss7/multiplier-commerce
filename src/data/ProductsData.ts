@@ -21,4 +21,12 @@ export class ProductsData extends BaseDatabase{
             throw new CustomError(500, error.sqlMessage);
         }
     };
+    create = async (input: ProductsDB): Promise<void> => {
+        try {
+            await BaseDatabase.connection("Produtos")
+                .insert(input)
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage);
+        }
+    };
 }
