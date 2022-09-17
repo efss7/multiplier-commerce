@@ -16,6 +16,17 @@ export class ProductsBusiness{
             throw new CustomError(error.statusCode, error.message)
         }
     };
+    findOne = async (id: string) => {
+        try {
+            const result = await this.productsData.findOne(id);
+            if (result.length === 0) {
+                throw new CustomError(422, "Produto não encontrado")
+            }
+            return result
+        } catch (error: any) {
+            throw new CustomError(error.statusCode, error.message);
+        }
+    };
 }
 
 export default new ProductsBusiness(
