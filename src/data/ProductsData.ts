@@ -1,5 +1,5 @@
 import { CustomError } from "../business/errors/CustomError";
-import { ProductsDB } from "../model/Products";
+import { ProductsDB, UpdateProductsDB } from "../model/Products";
 import BaseDatabase from "./BaseDatabase";
 
 export class ProductsData extends BaseDatabase{
@@ -29,4 +29,13 @@ export class ProductsData extends BaseDatabase{
             throw new CustomError(500, error.sqlMessage);
         }
     };
+    update = async (input: UpdateProductsDB): Promise<void> => {
+        try {
+            await BaseDatabase.connection("Produtos")
+                .update(input)
+                .where({ id: input.id });
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage);
+        }
+    }
 }

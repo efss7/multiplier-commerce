@@ -40,6 +40,7 @@ export interface ProductsDB {
     status: number
 }
 export interface UpdateProductsDB {
+    id:string,
     idCategoria: string,
     nome: string,
     descricao: string,

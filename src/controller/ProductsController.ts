@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import productsBusiness, { ProductsBusiness } from "../business/ProductsBusiness";
-import { CreateProductsDto } from "../model/Products";
+import { CreateProductsDto, UpdateProductsDto } from "../model/Products";
 
 export class ProductsController{
     constructor(
@@ -29,6 +29,17 @@ export class ProductsController{
             const inputs: CreateProductsDto = { idCategoria, nome, descricao, valor, status }
             await this.productsBusiness.create(inputs)
             res.status(201).send("Produto cadastrado com sucesso")
+        } catch (error: any) {
+            res.status(error.statusCode || 400).send({ error: error.message })
+        }
+    }
+    update = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const id = req.params.id;
+            const { idCategoria, nome, descricao, valor, status } = req.body
+            const inputs: UpdateProductsDto = {id, idCategoria, nome, descricao, valor, status}
+            await this.productsBusiness.update(inputs)
+            res.status(201).send("Categoria atualizada com sucesso")
         } catch (error: any) {
             res.status(error.statusCode || 400).send({ error: error.message })
         }
