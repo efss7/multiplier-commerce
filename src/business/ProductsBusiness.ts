@@ -1,5 +1,5 @@
-import { CategoryData } from "../data/CategoryData";
 import { ProductsData } from "../data/ProductsData";
+import { InventoryDB } from "../model/Inventory";
 import { CreateProductsDto, ProductsDB, STATUS, UpdateProductsDB, UpdateProductsDto } from "../model/Products";
 import IdGenerator from "../services/IdGenerator";
 import { CustomError } from "./errors/CustomError";
@@ -27,9 +27,9 @@ export class ProductsBusiness{
             throw new CustomError(error.statusCode, error.message);
         }
     };
-    create = async (inputs: CreateProductsDto) => {
+    create = async (inputsProducts: CreateProductsDto) => {
         try {
-            let { idCategoria, nome, descricao, valor, status } = inputs
+            let { idCategoria, nome, descricao, valor, status } = inputsProducts
 
             if (!idCategoria) {
                 throw new CustomError(422, "Categoria inválida")
@@ -64,7 +64,17 @@ export class ProductsBusiness{
                 valor,
                 status: statusNumber,
             }
-            await this.productsData.create(dataCategory)
+            const idInventory = this.idGenerator.generateId()
+            const quantidadeDefault = 0
+            const reservaDefault = 0
+            const dataInventory:InventoryDB={
+                id:idInventory,
+                idProduto:dataCategory.id,
+                quantidade:quantidadeDefault,
+                reserva:reservaDefault,
+                status:statusNumber
+            }
+            await this.productsData.create(dataCategory, dataInventory)
         } catch (error: any) {
             throw new CustomError(error.statusCode, error.message)
         }
@@ -108,12 +118,12 @@ export class ProductsBusiness{
             throw new CustomError(error.statusCode, error.message)
         }
     }
-    delete = async (id: string): Promise<void> => {
+    delete = async (id: string, idProduto:string): Promise<void> => {
         try {
             if (!id) {
                 throw new CustomError(422, "ID inválido");
             }
-            await this.productsData.delete(id);
+            await this.productsData.delete(id, idProduto);
         } catch (error: any) {
             throw new CustomError(error.statusCode, error.message);
         }

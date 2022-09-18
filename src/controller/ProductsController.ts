@@ -46,8 +46,9 @@ export class ProductsController{
     }
     delete = async (req: Request, res: Response): Promise<void> => {
         const id = req.params.id;
+        const idProduto = id
         try {
-            await this.productsBusiness.delete(id)
+            await this.productsBusiness.delete(id, idProduto)
             res.status(200).send("Produto excluído com sucesso");
         } catch (error: any) {
             res.status(error.statusCode || 400).send({ error: error.message });

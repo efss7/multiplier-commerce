@@ -1,4 +1,5 @@
 import { CustomError } from "../business/errors/CustomError";
+import { InventoryDB } from "../model/Inventory";
 import { ProductsDB, UpdateProductsDB } from "../model/Products";
 import BaseDatabase from "./BaseDatabase";
 
@@ -21,12 +22,12 @@ export class ProductsData extends BaseDatabase{
             throw new CustomError(500, error.sqlMessage);
         }
     };
-    create = async (input: ProductsDB): Promise<void> => {
+    create = async (inputsProducts: ProductsDB, inputsInventory:InventoryDB): Promise<void> => {
         try {
             await BaseDatabase.connection("Produtos")
-                .insert(input)
+                .insert(inputsProducts)
             await BaseDatabase.connection("Estoque")
-                .insert()
+                .insert(inputsInventory)
         } catch (error: any) {
             throw new CustomError(500, error.sqlMessage);
         }
@@ -40,8 +41,11 @@ export class ProductsData extends BaseDatabase{
             throw new CustomError(500, error.sqlMessage);
         }
     }
-    delete = async (id: string): Promise<void> => {
+    delete = async (id: string, idProduto:string): Promise<void> => {
         try {
+            await BaseDatabase.connection("Estoque")
+            .where({idProduto:idProduto})
+            .delete()
             await BaseDatabase.connection("Produtos")
                 .where({ id })
                 .delete()
