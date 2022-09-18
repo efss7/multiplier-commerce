@@ -1,12 +1,15 @@
 import { CategoryData } from "../data/CategoryData";
+import { ProductsData } from "../data/ProductsData";
 import { CategoryDB, CreateCategoryDto, STATUS, UpdateCategoryDB, UpdateCategoryDto } from "../model/Category"
+import { UpdateProductsDB } from "../model/Products";
 import IdGenerator from "../services/IdGenerator"
 import { CustomError } from "./errors/CustomError";
 
 export class CategoryBusiness {
     constructor(
         private categoryData: CategoryData,
-        private idGenerator: IdGenerator
+        private idGenerator: IdGenerator,
+        private productsData: ProductsData
     ) { }
     findAll = async (): Promise<CategoryDB[] | undefined> => {
         try {
@@ -75,9 +78,9 @@ export class CategoryBusiness {
             } else {
                 statusNumber = STATUS.INATIVO
             }
-            const dataCategory: UpdateCategoryDB={
-                id:inputs.id,
-                titulo:inputs.titulo,
+            const dataCategory: UpdateCategoryDB = {
+                id: inputs.id,
+                titulo: inputs.titulo,
                 status: statusNumber,
             }
             await this.categoryData.update(dataCategory)
@@ -90,6 +93,10 @@ export class CategoryBusiness {
             if (!id) {
                 throw new CustomError(422, "ID inválido");
             }
+            const products = await this.productsData.findByCategory(id)
+            products.map((product) => {
+            return this.productsData.update({ ...product, idCategoria: null })
+            })
             await this.categoryData.delete(id);
         } catch (error: any) {
             throw new CustomError(error.statusCode, error.message);
@@ -101,5 +108,6 @@ export class CategoryBusiness {
 
 export default new CategoryBusiness(
     new CategoryData(),
-    new IdGenerator()
+    new IdGenerator(),
+    new ProductsData()
 );

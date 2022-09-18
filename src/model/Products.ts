@@ -41,7 +41,7 @@ export interface ProductsDB {
 }
 export interface UpdateProductsDB {
     id:string,
-    idCategoria: string,
+    idCategoria: string | null,
     nome: string,
     descricao: string,
     valor: number,
