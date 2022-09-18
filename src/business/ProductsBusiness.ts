@@ -108,6 +108,16 @@ export class ProductsBusiness{
             throw new CustomError(error.statusCode, error.message)
         }
     }
+    delete = async (id: string): Promise<void> => {
+        try {
+            if (!id) {
+                throw new CustomError(422, "ID inválido");
+            }
+            await this.productsData.delete(id);
+        } catch (error: any) {
+            throw new CustomError(error.statusCode, error.message);
+        }
+    };
     
 }
 

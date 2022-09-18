@@ -44,5 +44,14 @@ export class ProductsController{
             res.status(error.statusCode || 400).send({ error: error.message })
         }
     }
+    delete = async (req: Request, res: Response): Promise<void> => {
+        const id = req.params.id;
+        try {
+            await this.productsBusiness.delete(id)
+            res.status(200).send("Produto excluído com sucesso");
+        } catch (error: any) {
+            res.status(error.statusCode || 400).send({ error: error.message });
+        }
+    }
 }
 export default new ProductsController(productsBusiness);

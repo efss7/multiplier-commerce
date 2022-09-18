@@ -25,6 +25,8 @@ export class ProductsData extends BaseDatabase{
         try {
             await BaseDatabase.connection("Produtos")
                 .insert(input)
+            await BaseDatabase.connection("Estoque")
+                .insert()
         } catch (error: any) {
             throw new CustomError(500, error.sqlMessage);
         }
@@ -38,4 +40,13 @@ export class ProductsData extends BaseDatabase{
             throw new CustomError(500, error.sqlMessage);
         }
     }
+    delete = async (id: string): Promise<void> => {
+        try {
+            await BaseDatabase.connection("Produtos")
+                .where({ id })
+                .delete()
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage);
+        }
+    };
 }
