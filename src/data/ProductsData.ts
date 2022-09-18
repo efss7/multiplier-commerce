@@ -1,11 +1,11 @@
 import { CustomError } from "../business/errors/CustomError";
-import { CategoryDB, UpdateCategoryDB } from "../model/Category";
+import { ProductsDB, UpdateProductsDB } from "../model/Products";
 import BaseDatabase from "./BaseDatabase";
 
-export class CategoryData extends BaseDatabase {
-    findAll = async (): Promise<CategoryDB[]> => {
+export class ProductsData extends BaseDatabase{
+    findAll = async (): Promise<ProductsDB[]> => {
         try {
-            return BaseDatabase.connection('Categorias')
+            return BaseDatabase.connection('Produtos')
                 .select('*')
         } catch (error: any) {
             throw new CustomError(500, error.sqlMessage);
@@ -13,7 +13,7 @@ export class CategoryData extends BaseDatabase {
     }
     findOne = async (id: string) => {
         try {
-            const result = await BaseDatabase.connection("Categorias")
+            const result = await BaseDatabase.connection("Produtos")
                 .select("*")
                 .where({ id });
             return result;
@@ -21,17 +21,19 @@ export class CategoryData extends BaseDatabase {
             throw new CustomError(500, error.sqlMessage);
         }
     };
-    create = async (input: CategoryDB): Promise<void> => {
+    create = async (input: ProductsDB): Promise<void> => {
         try {
-            await BaseDatabase.connection("Categorias")
+            await BaseDatabase.connection("Produtos")
                 .insert(input)
+            await BaseDatabase.connection("Estoque")
+                .insert()
         } catch (error: any) {
             throw new CustomError(500, error.sqlMessage);
         }
     };
-    update = async (input: UpdateCategoryDB): Promise<void> => {
+    update = async (input: UpdateProductsDB): Promise<void> => {
         try {
-            await BaseDatabase.connection("Categorias")
+            await BaseDatabase.connection("Produtos")
                 .update(input)
                 .where({ id: input.id });
         } catch (error: any) {
@@ -40,7 +42,7 @@ export class CategoryData extends BaseDatabase {
     }
     delete = async (id: string): Promise<void> => {
         try {
-            await BaseDatabase.connection("Categorias")
+            await BaseDatabase.connection("Produtos")
                 .where({ id })
                 .delete()
         } catch (error: any) {
