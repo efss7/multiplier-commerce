@@ -25,5 +25,8 @@ export class InventoryController {
             res.status(error.statusCode || 400).send({ error: error.message })
         }
     }
+    delete = async (req: Request, res: Response): Promise<void> => {
+        res.status(501).send("Not Implemented.")  
+    }
 }
 export default new InventoryController(inventoryBusiness)
