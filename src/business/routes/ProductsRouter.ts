@@ -11,3 +11,4 @@ productsRouter.patch("/:id", productsController.update)
 productsRouter.delete("/:id", productsController.delete)
 
 productsRouter.get("/:idProduto/estoque", inventoryController.findOne)
+productsRouter.patch("/:idProduto/estoque", inventoryController.update)

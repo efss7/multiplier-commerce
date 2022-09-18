@@ -14,11 +14,9 @@ export class Inventory {
 }
 
 export interface UpdateInventoryDto {
-    id: string,
-    idCategoria: string,
-    nome: string,
-    descricao: string,
-    valor: number,
+    idProduto: string,
+    quantidade: number,
+    reserva: number,
     status: string
 }
 export interface InventoryDB {
@@ -28,7 +26,10 @@ export interface InventoryDB {
     reserva: number,
     status: number
 }
+export interface UpdateInventoryDB {
+    idProduto: string,
+    quantidade: number,
+    reserva: number,
+    status: number
+}
 
-export default new Inventory(
-    new inve
-);
