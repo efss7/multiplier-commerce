@@ -53,4 +53,14 @@ export class ProductsData extends BaseDatabase{
             throw new CustomError(500, error.sqlMessage);
         }
     };
+    findByCategory = async (idCategoria: string) => {
+        try {
+            const result = await BaseDatabase.connection("Produtos")
+                .select("*")
+                .where({ idCategoria });
+            return result;
+        } catch (error: any) {
+            throw new CustomError(500, error.sqlMessage);
+        }
+    };
 }
