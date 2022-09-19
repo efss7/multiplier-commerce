@@ -3,7 +3,7 @@ import { ProductsDB, UpdateProductsDB } from "../../../src/model/Products";
 
 export const ProductsMock = {
     id: "id1",
-    idCategoria: "id1",
+    idCategoria: "categoria1",
     codigo: "codigo1",
     nome: "nome1",
     descricao: "descricao1",

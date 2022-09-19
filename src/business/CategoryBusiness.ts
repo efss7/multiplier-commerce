@@ -1,7 +1,6 @@
 import { CategoryData } from "../data/CategoryData";
 import { ProductsData } from "../data/ProductsData";
 import { CategoryDB, CreateCategoryDto, STATUS, UpdateCategoryDB, UpdateCategoryDto } from "../model/Category"
-import { UpdateProductsDB } from "../model/Products";
 import IdGenerator from "../services/IdGenerator"
 import { CustomError } from "./errors/CustomError";
 
@@ -36,7 +35,7 @@ export class CategoryBusiness {
                 throw new CustomError(422, "Título não foi passado")
             }
             if (!status || !(status.toLocaleUpperCase() in STATUS)) {
-                throw new CustomError(422, "Status Inválido")
+                throw new CustomError(422, "Status inválido")
             }
 
             let statusNumber
@@ -70,7 +69,7 @@ export class CategoryBusiness {
                 throw new CustomError(422, "Título não foi passado")
             }
             if (!inputs.status || !(inputs.status.toLocaleUpperCase() in STATUS)) {
-                throw new CustomError(422, "Status Inválido")
+                throw new CustomError(422, "Status inválido")
             }
             let statusNumber
             if (inputs.status.toUpperCase() === "ATIVO") {

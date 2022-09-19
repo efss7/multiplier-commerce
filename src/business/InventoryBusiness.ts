@@ -29,7 +29,7 @@ export class InventoryBusiness{
                 throw new CustomError(422, "Reserva não foi passada")
             }
             if (!inputs.status || !(inputs.status.toLocaleUpperCase() in STATUS)) {
-                throw new CustomError(422, "Status Inválido")
+                throw new CustomError(422, "Status inválido")
             }
             let statusNumber
             if (inputs.status.toUpperCase() === "ATIVO") {

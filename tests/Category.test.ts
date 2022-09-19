@@ -49,7 +49,7 @@ describe("test CategoryBusiness class", () => {
                 await CategoryBusinessMock.create(inputs)
             } catch (error: any) {
                 inputs.status = "ativo";
-                expect(error.message).toEqual("Status Inválido");
+                expect(error.message).toEqual("Status inválido");
                 expect(error.statusCode).toStrictEqual(422);
             } finally {
                 expect.assertions(2);
@@ -69,13 +69,13 @@ describe("test CategoryBusiness class", () => {
                 expect.assertions(2);
             }
         })
-        test("test missing codigo", async () => {
+        test("test missing status", async () => {
             inputs.status = "";
             try {
                 await CategoryBusinessMock.create(inputs)
             } catch (error: any) {
                 inputs.status = "ativo";
-                expect(error.message).toEqual("Status Inválido");
+                expect(error.message).toEqual("Status inválido");
                 expect(error.statusCode).toStrictEqual(422);
             } finally {
                 expect.assertions(2);
